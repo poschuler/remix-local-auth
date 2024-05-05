@@ -11,7 +11,6 @@ import {
 import stylesheet from "~/tailwind.css?url";
 import { getToast } from "remix-toast";
 import { useEffect } from "react";
-import { toast as notify } from "sonner";
 import { Toaster } from "~/components/ui/toaster";
 import { useToast } from "~/components/ui/use-toast";
 
