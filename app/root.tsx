@@ -7,11 +7,13 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import { Toaster } from "~/components/ui/sonner";
+
 import stylesheet from "~/tailwind.css?url";
 import { getToast } from "remix-toast";
 import { useEffect } from "react";
 import { toast as notify } from "sonner";
+import { Toaster } from "~/components/ui/toaster";
+import { useToast } from "~/components/ui/use-toast";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -42,13 +44,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  let { toast } = useLoaderData<typeof loader>();
+  let { toast: loaderToast } = useLoaderData<typeof loader>();
+  let { toast } = useToast();
 
   useEffect(() => {
-    if (toast) {
-      notify(toast.message);
+    if (loaderToast) {
+      toast({ description: loaderToast.message });
     }
-  }, [toast]);
+  }, [loaderToast]);
 
   return <Outlet />;
 }
